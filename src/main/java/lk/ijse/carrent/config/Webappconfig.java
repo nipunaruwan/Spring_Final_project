@@ -12,18 +12,17 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 public class Webappconfig {
 
-
+/*
     @Bean
 public ModelMapper modelMapper(){
         return new ModelMapper();
 
-}
+}*/
 @Bean
     public MultipartResolver multipartResolver(){
         return new StandardServletMultipartResolver();
 }
 
 
-    private class ModelMapper {
-    }
+
 }
