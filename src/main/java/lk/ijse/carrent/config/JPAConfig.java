@@ -56,7 +56,7 @@ public class JPAConfig {
     }
 
     @Bean
-    public DriverManagerDataSource dataSource() throws NamingException {
+    public javax.sql.DataSource dataSource() throws NamingException {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty("my.driver"));
         dataSource.setUrl(environment.getRequiredProperty("db.url"));
