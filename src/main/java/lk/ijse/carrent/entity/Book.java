@@ -15,7 +15,6 @@ import javax.persistence.Id;
 @Entity
 public class Book {
     @Id
-
     String BookingID;
     String CusID;
     String DriverID;
