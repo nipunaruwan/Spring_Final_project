@@ -1,4 +1,4 @@
-package lk.ijse.carrent.dto;
+package lk.ijse.carrent.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
