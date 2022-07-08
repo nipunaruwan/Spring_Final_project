@@ -8,6 +8,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.Database;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.activation.DataSource;
@@ -30,5 +32,13 @@ public class JPAConfig {
         factoryBean.setPackagesToScan(environment.getRequiredProperty("entity.package"));
         return factoryBean;
     }
+    @Bean
+    public JpaVendorAdapter vendorAdapter(){
+        HibernateJpaVendorAdapter va = new HibernateJpaVendorAdapter();
+        va.setDatabasePlatform(environment.getRequiredProperty("db.dialect"));
+        va.setDatabase(Database.MYSQL);
+        va.setGenerateDdl(true);
+        va.setShowSql(true);
 
-}
+
+    }
