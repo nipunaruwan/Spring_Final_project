@@ -11,5 +11,5 @@ public interface DamageService {
         void deleteDamage(String id);
         void updateDamage(Damagedto dto);
         void  searchDamage(String id);
-        List<Customerdto> getAllDamages();
+        List<Damagedto> getAllDamages();
 }
