@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,6 +16,7 @@ import javax.persistence.Id;
 @Entity
 public class Book {
     @Id
+
     String BookingID;
     String CusID;
     String DriverID;
