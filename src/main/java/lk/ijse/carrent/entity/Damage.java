@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @Entity
 public class Damage {
     @Id
-
+    String DamegeID;
     String VID;
     String DVownname;
     String VDiscription;

@@ -10,6 +10,7 @@ import lombok.ToString;
 @ToString
 @Data
 public class Damagedto {
+   String DamageID;
    String VID;
    String DVownname;
    String VDiscription;
