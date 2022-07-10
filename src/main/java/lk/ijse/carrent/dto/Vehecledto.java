@@ -1,4 +1,4 @@
-package lk.ijse.carrent.dao;
+package lk.ijse.carrent.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Data
-public class Vehecledao {
+public class Vehecledto {
   String  VID;
   String  DID;
   String  Brand;

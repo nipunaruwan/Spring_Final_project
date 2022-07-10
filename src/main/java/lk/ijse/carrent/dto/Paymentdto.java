@@ -1,4 +1,4 @@
-package lk.ijse.carrent.dao;
+package lk.ijse.carrent.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,12 +9,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Data
-public class Rentdao {
-   String cusID;
-   String  DID;
-   String VID;
-   String Distance;
-   String Km;
-   double price ;
+public class Paymentdto {
+   String paymentID;
+   String BookingID;
+   String time;
+   String date;
+   double Discount;
 
 }
