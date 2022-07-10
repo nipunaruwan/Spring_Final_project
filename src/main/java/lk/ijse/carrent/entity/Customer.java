@@ -22,4 +22,6 @@ public class Customer {
     String IDcard;
     String drivinglicence;
     int contactno;
+
+
 }
