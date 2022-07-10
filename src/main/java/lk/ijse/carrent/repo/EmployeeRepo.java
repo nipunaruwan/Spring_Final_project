@@ -1,4 +1,7 @@
 package lk.ijse.carrent.repo;
 
-public interface EmployeeRepo {
+import lk.ijse.carrent.entity.Employee;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EmployeeRepo extends JpaRepository<Employee,String> {
 }
