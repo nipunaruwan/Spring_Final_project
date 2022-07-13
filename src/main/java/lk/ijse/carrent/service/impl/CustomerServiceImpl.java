@@ -5,6 +5,7 @@ import lk.ijse.carrent.entity.Customer;
 import lk.ijse.carrent.repo.CustomerRepo;
 import lk.ijse.carrent.service.CustomerService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -53,6 +54,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     public List<Customerdto> getAllCustomers() {
-        return null;
+        return map.map(repo.findAll(), new TypeToken<List<Customerdto>>() {
+        }.getType());
     }
 }
