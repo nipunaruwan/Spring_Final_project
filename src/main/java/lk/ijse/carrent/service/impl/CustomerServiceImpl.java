@@ -6,7 +6,6 @@ import lk.ijse.carrent.repo.CustomerRepo;
 import lk.ijse.carrent.service.CustomerService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
 import java.util.List;
 
@@ -44,7 +43,12 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-    public void searchCustomer(String id) {
+    public Customerdto searchCustomer(String id) {
+        if (repo.existsById(id)){
+            return map.map(repo.findById(id).get(),Customerdto.class);
+        }else {
+            throw new RuntimeException("No Customer For " + id + " ..!");
+        }
 
     }
 
