@@ -7,9 +7,12 @@ import lk.ijse.carrent.service.DamageService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Service
+@Transactional
 public class DamageServiceImpl implements DamageService {
 
     @Autowired
@@ -50,7 +53,7 @@ public class DamageServiceImpl implements DamageService {
         if (repo.existsById(id)) {
             return mapper.map(repo.findById(id).get(), Damagedto.class);
         } else {
-            throw new RuntimeException("No Customer For " + id + " ..!");
+            throw new RuntimeException("No Damage For " + id + " ..!");
         }
     }
 
