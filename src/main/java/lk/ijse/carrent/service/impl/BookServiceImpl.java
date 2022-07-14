@@ -34,7 +34,7 @@ private ModelMapper map;
             if (repo.existsById(dto.getBookingID())) {
                 repo.save(map.map(dto, Book.class));
             } else {
-                throw new RuntimeException("No Such Customer To Update..! Please Check the ID..!");
+                throw new RuntimeException("No Such Book To Update..! Please Check the ID..!");
             }
         }
 
@@ -42,7 +42,7 @@ private ModelMapper map;
             if (repo.existsById(id)) {
                 return map.map(repo.findById(id).get(), Bookingdto.class);
             } else {
-                throw new RuntimeException("No Customer For " + id + " ..!");
+                throw new RuntimeException("No Book For " + id + " ..!");
             }
         }
 
