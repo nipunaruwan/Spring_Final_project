@@ -1,12 +1,11 @@
 package lk.ijse.carrent.service.impl;
 
 import lk.ijse.carrent.dto.Bookingdto;
-import lk.ijse.carrent.dto.Customerdto;
 import lk.ijse.carrent.entity.Book;
-import lk.ijse.carrent.entity.Customer;
 import lk.ijse.carrent.repo.BookRepo;
 import lk.ijse.carrent.service.BookService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -24,18 +23,31 @@ private ModelMapper map;
         }
     }
         public void deleteBooking (String id){
-
+            if (repo.existsById(id)) {
+                repo.deleteById(id);
+            } else {
+                throw new RuntimeException("Please check the Book ID.. No Such Customer..!");
+            }
         }
 
         public void updateBooking (Bookingdto dto){
-
+            if (repo.existsById(dto.getBookingID())) {
+                repo.save(map.map(dto, Book.class));
+            } else {
+                throw new RuntimeException("No Such Customer To Update..! Please Check the ID..!");
+            }
         }
 
-        public Customerdto searchBooking (String id){
-            return null;
+        public Bookingdto searchBooking (String id){
+            if (repo.existsById(id)) {
+                return map.map(repo.findById(id).get(), Bookingdto.class);
+            } else {
+                throw new RuntimeException("No Customer For " + id + " ..!");
+            }
         }
 
         public List<Bookingdto> getAllBooking () {
-            return null;
+            return map.map(repo.findAll(), new TypeToken<List<Bookingdto>>() {
+            }.getType());
         }
     }
