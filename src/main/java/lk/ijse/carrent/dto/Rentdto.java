@@ -10,6 +10,7 @@ import lombok.ToString;
 @ToString
 @Data
 public class Rentdto {
+   String rentID;
    String cusID;
    String  DID;
    String VID;

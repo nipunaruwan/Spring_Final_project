@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @Entity
 public class Rent {
     @Id
-
+    String rentID;
     String cusID;
     String  DID;
     String VID;
