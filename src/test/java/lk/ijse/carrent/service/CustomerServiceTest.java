@@ -23,7 +23,9 @@ class CustomerServiceTest {
     @Test
     void saveCustomer() {
         Customer customer=new Customer("0000144244","001","sadun","panadura","2000000","345678",07645);
+        Customer customer2=new Customer("000014","002","kasun","kaluthara","3000000","345",076454534);
         repo.save(customer);
+        repo.save(customer2);
     }
 
     @Test
