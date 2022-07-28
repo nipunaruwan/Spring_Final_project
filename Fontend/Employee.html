@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee</title>
+    <link rel="stylesheet" href="assert/bootstrap/css/bootstrap.css">
+</head>
+<body>
+<section id="Employeepage" class="container-fluid">
+    <form action="">
+
+        <h1>Sign UP </h1><br>
+        <div class="row g-3 ">
+            <div class="col-6  m-md-auto"  >
+                <input  type="text" class="form-control" placeholder="EmployeeID" aria-label="CustomerID" width="300px" id="txtCusID">
+                <p><small id="lblcusid" class="text-danger p-1"></small></p>
+            </div>
+            <div class="col-6 m-md-auto ">
+                <input type="text" class="form-control" placeholder="Employee name" aria-label="Customer name" id="txtCusName">
+                <p><small id="lblcusname" class="text-danger p-1"></small></p>
+            </div>
+        </div>
+        <div class="row g-3">
+            <div class="col-6 ">
+                <input type="text" class="form-control" placeholder="Email" aria-label="address" id="txtaddress">
+                <p><small id="lblcusaddress" class="text-danger p-1"></small></p>
+            </div>
+            <div class="col-6">
+                <input type="text" class="form-control" placeholder="Contact-no" aria-label="contact-no" id="txtcontact">
+                <p><small id="lblContact" class="text-danger p-1"></small></p>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-6 m-md-auto">
+                    <input type="text" class="form-control" placeholder="email" aria-label="address" id="txtemail">
+                    <p><small id="lblemail" class="text-danger p-1"></small></p>
+                </div>
+                <div class="col-6 m-md-auto">
+                    <input type="password" class="form-control" placeholder="password" aria-label="contact-no" id="txtdriverID">
+                    <p><small id="lbldriverID" class="text-danger p-1"></small></p>
+                </div>
+            </div>
+            <!-- <div id="text">
+                 <div id="text1"><input type="text" placeholder="coustomer name" ></div>
+                 <div id="text2"> <input type="text" placeholder="customer ID"></div>
+                 <div id="text3"> <input type="text"placeholder="address"></div>
+                 <div id="text4"> <input type="text"placeholder="contact-no"></div>
+             </div>-->
+            <div id="button" class="m-4">
+                <button type="button" class="btn btn-success" id="btnCustomerSave" >Save</button>
+                <button type="button" class="btn btn-danger" id="btnCustomerupdate">update</button>
+                <button type="button" class="btn btn-warning" id="btnCustomerDelete">delete</button>
+                <button type="button" class="btn btn-dark" id="btnCustomerSearch">Search</button>
+            </div>
+            <!--<div class="container-fluid">
+                <table class="table" width="400px" id="table">
+                    <thead>
+                    <tr class="table-dark">
+
+                        <th scope="col">Employee ID</th>
+                        <th scope="col">Employee name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">contact-no</th>
+                        <th scope="col">email</th>
+                        <th scope="col">driverID</th>
+
+                    </tr>
+                    </thead>
+                    <tbody id="custablebody">
+
+                    </tbody>
+                </table>-->
+            </div>
+    </form>
+</section>
+</body>
+</html>

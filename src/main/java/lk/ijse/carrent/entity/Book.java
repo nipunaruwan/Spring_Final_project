@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @AllArgsConstructor
@@ -14,9 +15,10 @@ import javax.persistence.OneToOne;
 @ToString
 @Data
 @Entity
-public class Book {
-    @Id
 
+public class Book {
+
+    @Id
     String BookingID;
     String CusID;
     String DriverID;
