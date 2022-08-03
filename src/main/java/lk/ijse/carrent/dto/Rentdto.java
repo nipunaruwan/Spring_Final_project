@@ -11,6 +11,7 @@ import lombok.ToString;
 @Data
 public class Rentdto {
    String rentID;
+   String BookingID;
    String cusID;
    String  DID;
    String VID;

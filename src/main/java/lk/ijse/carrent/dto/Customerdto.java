@@ -10,11 +10,11 @@ import lombok.ToString;
 @ToString
 @Data
 public class Customerdto {
+
     String cusID;
-    String driverID;
     String name;
-    String Address;
-    String IDcard;
+    String address;
+    String iDcard;
     String drivinglicence;
     int contactno;
 }

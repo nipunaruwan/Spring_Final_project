@@ -16,10 +16,9 @@ import javax.persistence.Id;
 public class Customer {
     @Id
     String cusID;
-    String driverID;
     String name;
-    String Address;
-    String IDcard;
+    String address;
+    String iDcard;
     String drivinglicence;
     int contactno;
 

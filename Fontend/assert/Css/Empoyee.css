@@ -1,0 +1,35 @@
+#btnEmployeeSave{
+    border-color: #e40c62;
+    transition: .5s;
+}
+#btnEmployeeSave{
+    position: absolute;
+    top: 505px;
+    left: 862px;
+    width: 10%;
+    height: 50px;
+    border: 1px solid;
+    background: #d9116e;
+    border-radius: 25px;
+    font-size: 18px;
+    color: #a9b7c2;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+}
+#btnEmployeeSave{
+
+}
+body{
+    margin: 0;
+    padding: 0;
+    font-family: "Mongolian Baiti";
+    background: linear-gradient(120deg,#2980b9,#8e44ad);
+    height:110vh;
+    overflow:hidden;
+}
+h1{
+    text-align: center;
+    padding: 0 0 20px 0;
+
+}

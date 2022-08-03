@@ -19,8 +19,8 @@ class BookServiceTest {
     BookRepo repo;
     @Test
     void saveBooking() {
-        Book book = new Book("B001","C001","D001","panadura","2022/5/3","2022/5/5","2022/5/7");
-        repo.save(book);
+       /* Book book = new Book("B001","p001",""C001","D001","panadura","2022/5/3","2022/5/5","2022/5/7");
+        repo.save(book);*/
     }
 
     @Test

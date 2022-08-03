@@ -5,8 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,6 +15,8 @@ import javax.persistence.Id;
 public class Payment {
     @Id
     String paymentID;
+   /* @OneToOne(cascade = {CascadeType.REFRESH,CascadeType.DETACH })
+            @JoinColumn(name = "BID",referencedColumnName = "BookingID",nullable = false)*/
     String BookingID;
     String time;
     String date;

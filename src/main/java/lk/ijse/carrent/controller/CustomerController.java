@@ -31,8 +31,8 @@ public class CustomerController {
     }
 
     @DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Responceutil DeleteCustomer(@RequestParam String iD) {
-        customerService.deleteCustomer(iD);
+    public Responceutil DeleteCustomer(@RequestParam String id) {
+        customerService.deleteCustomer(id);
         return new Responceutil(200, "delete", null);
     }
 
@@ -42,8 +42,8 @@ public class CustomerController {
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Responceutil SearchCustomer(@PathVariable String iD) {
-        return new Responceutil(200, "search", customerService.searchCustomer(iD));
+    public Responceutil SearchCustomer(@PathVariable String id) {
+        return new Responceutil(200, "search", customerService.searchCustomer(id));
     }
 
 }

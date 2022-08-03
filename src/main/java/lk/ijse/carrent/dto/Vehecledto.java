@@ -11,12 +11,10 @@ import lombok.ToString;
 @Data
 public class Vehecledto {
   String  VID;
-  String  DID;
   String  Brand;
   String  rate;
   String  fueltype;
   String  image;
   String  Distance;
-  int  ownercontact;
   String  Vtype;
 }

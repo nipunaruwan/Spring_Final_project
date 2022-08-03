@@ -1,5 +1,6 @@
 package lk.ijse.carrent.dto;
 
+import lk.ijse.carrent.entity.Payment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.ToString;
 @Data
 public class Bookingdto {
     String BookingID;
+    String PID;
     String CusID;
     String DriverID;
     String pickuplocation;

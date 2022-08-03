@@ -12,8 +12,7 @@ import lombok.ToString;
 public class Damagedto {
    String DamageID;
    String VID;
-   String DVownname;
    String VDiscription;
    String Damagetype;
-   int Dvcontact;
+
 }

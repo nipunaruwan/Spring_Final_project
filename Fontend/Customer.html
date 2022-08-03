@@ -4,25 +4,26 @@
     <meta charset="UTF-8">
     <title>Customer</title>
     <link rel="stylesheet" href="assert/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="assert/Css/Customer.css">
 </head>
 <body>
 <section id="Customerpage" class="container-fluid">
     <form action="" id="customerform">
 
         <h1>Customer</h1><br>
-        <div class="row g-3 ">
-            <div class="col-6  m-md-auto"  >
+        <div class="row g-2 m-md-auto ">
+            <div class="col-6 "  >
                 <input  type="text" class="form-control" placeholder="Customer ID" aria-label="CustomerID" width="300px" id="txtCusID" name="cusID">
                 <p><small id="lblcusid" class="text-danger p-1"></small></p>
             </div>
-            <div class="col-6 m-md-auto ">
+            <div class="col-6  ">
                 <input type="text" class="form-control" placeholder="Customer name" aria-label="Customer name" id="txtCusName" name="name">
                 <p><small id="lblcusname" class="text-danger p-1"></small></p>
             </div>
         </div>
-        <div class="row g-3">
+        <div class="row g-2 m-md-auto">
             <div class="col-6 ">
-                <input type="text" class="form-control" placeholder="address" aria-label="address" id="txtaddress" name="Address">
+                <input type="text" class="form-control" placeholder="address" aria-label="address" id="txtaddress" name="address">
                 <p><small id="lblcusaddress" class="text-danger p-1"></small></p>
             </div>
             <div class="col-6">
@@ -30,13 +31,13 @@
                 <p><small id="lblContact" class="text-danger p-1"></small></p>
             </div>
 
-            <div class="row g-3">
-                <div class="col-6 m-md-auto">
+            <div class="row g-2 m-md-auto">
+                <div class="col-6 ">
                     <input type="text" class="form-control" placeholder="drivinglicence" aria-label="drivinglicence" id="txtdrivinglicence" name="drivinglicence">
                     <p><small id="lblemail" class="text-danger p-1"></small></p>
                 </div>
-                <div class="col-6 m-md-auto">
-                    <input type="text" class="form-control" placeholder="driverID" aria-label="contact-no" id="txtdriverID" name="driverID">
+                <div class="col-6 ">
+                    <input type="text" class="form-control" placeholder="ID card" aria-label="contact-no" id="txtID" name="iDcard">
                     <p><small id="lbldriverID" class="text-danger p-1"></small></p>
                 </div>
         </div>
@@ -51,6 +52,7 @@
             <button type="button" class="btn btn-danger" id="btnCustomerupdate">update</button>
             <button type="button" class="btn btn-warning" id="btnCustomerDelete">delete</button>
             <button type="button" class="btn btn-dark" id="btnCustomerSearch">Search</button>
+            <button type="button" class="btn btn-dark" id="btnLoadAll">Load All</button>
         </div>
         <div class="container-fluid">
             <table class="table" width="400px" id="table">
@@ -61,8 +63,8 @@
                     <th scope="col">customer name</th>
                     <th scope="col">address</th>
                     <th scope="col">contact-no</th>
-                    <th scope="col">email</th>
-                    <th scope="col">driverID</th>
+                    <th scope="col">driving licence</th>
+                    <th scope="col">IDCard</th>
 
                 </tr>
                 </thead>
@@ -74,6 +76,7 @@
         </div>
     </form>
 </section>
+<script src="assert/Jquery/jquery-3.6.0.min.js"></script>
 <script>
     var baseurl ="http://localhost:8080/Spring_Finalproject__Carrent_war/Customer";
 
@@ -98,9 +101,134 @@
             }
         });
     }
+    $("#btnCustomerupdate").click(function () {
+
+       updateCustomer();
+    });
+    function updateCustomer() {
+        var Customerob = {
+            cusID: $("#txtCusID").val(),
+            name: $("#txtCusName").val(),
+            address: $("#txtaddress").val(),
+            iDcard: $("#txtID").val(),
+            drivinglicence: $("#txtdriverlicence").val(),
+            contactno: $("#txtcontact").val(),
+        }
+        $.ajax({
+            url: baseurl,
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(Customerob),
+            success: function (res) {
+                if (res.code == 200) { // process is  ok
+                    alert("Successfully Updated");
+                    loadAllDriver();
+                    clearForm();
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+
+    $("#btnCustomerDelete").click(function () {
+
+        DeleteCustomer();
+    });
+    function DeleteCustomer(){
+        let CusID = $("#txtCusID").val();
+        $.ajax({
+            url:baseurl+"?cusID="+CusID,
+            method:"DELETE",
+            success:function (res){
+                if (res.code==200){
+                    alert("Customer Successfully Deleted");
+                   /* loadAllDriver();
+                    clearForm();*/
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+
+    $("#btnCustomerSearch").click(function (){
+        SearchCustomer();
+
+    });
+    //------------------------------------------------------------------------------------------------------------
+    function SearchCustomer(){
+        var CusID=$("#txtCusID").val();
+        $.ajax({
+            url:baseurl +"/"+ CusID,
+            method:"GET",
+            success: function (res){
+                if (res.code==200){
+                    var customer =res.data;
+                    $("#txtCusID").val(customer.cusID);
+                    $("#txtCusName").val(customer.name);
+                    $("#txtaddress").val(customer.address);
+                    $("#txtID").val(customer.iDcard);
+                    $("#txtdriverlicence").val(customer.drivinglicence);
+                    $("#txtcontact").val(customer.contactno);
+                }else {
+
+                   loadAllCustomers();
+                }
+            },
+            error:function (ob){
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
 
 
 
+    $("#btnLoadAll").click(function (){
+        loadAllCustomers();
+    });
+
+    function loadAllCustomers(){
+        $("#custablebody").empty();
+        $.ajax({
+            url: baseurl,
+            method: "GET",
+            success:function (resp){
+                for (const customer of resp.data) {
+                    let row = `<tr><td>${customer.cusID}</td>><td>${customer.name}</td>>
+<td>${customer.address}</td><td>${customer.idcard}</td><td>${customer.drivinglicence}</td><td>${customer.contactno}</td></tr>`;
+                    $("#custablebody").append(row);
+                }
+                bindClickEvent();
+
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+    function bindClickEvent() {
+        $("#table>tr").click(function () {
+            //Get values from the selected row
+            let cusID = $(this).children().eq(0).text();
+            let name = $(this).children().eq(1).text();
+            let address = $(this).children().eq(2).text();
+            let idcard = $(this).children().eq(3).text();
+            let drivinglicence = $(this).children().eq(4).text();
+            let contactno = $(this).children().eq(5).text();
+
+            //Set values to the text-fields
+            $("#txtCusID").val(cusID);
+            $("#txtCusName").val(name);
+            $("#txtaddress").val(address);
+            $("#txtID").val(idcard);
+            $("#txtdriverlicence").val(drivinglicence);
+            $("#txtcontact").val(contactno);
+        });
+    }
 </script>
+
 </body>
 </html>

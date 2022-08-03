@@ -16,7 +16,7 @@ import javax.persistence.Id;
 public class Rent {
     @Id
     String rentID;
-    String cusID;
+   String BookingID;
     String  DID;
     String VID;
     String Distance;

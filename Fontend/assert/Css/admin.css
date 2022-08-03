@@ -1,3 +1,32 @@
 body{
     background-image: url("../img/purepng.com-orange-jeep-wrangler-carcarvehicletransportjeep-9615246560639no4a.png");
 }
+.header-btn a{
+    padding: 10px 20px;
+    color: blue;
+    font-weight: 500;
+
+}
+.header-btn .signin {
+    background: #474fa0;
+    color: #fff;
+    border-radius: 0.5rem;
+    background-radius: 50px 50px 50px 50px;
+
+}
+.header-btn .signin:hover {
+    background:orange;
+}
+ul{
+    list-style: none;
+    padding-left: -47rem;
+    left: 694px;
+    position: absolute;
+    font-family:"Arial Black";
+}
+a{
+    text-decoration: none;
+    color: black;
+    pointer-events: painted;
+
+}

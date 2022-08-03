@@ -16,12 +16,10 @@ import javax.persistence.Id;
 public class Vehicle {
     @Id
     String  VID;
-    String  DID;
     String  Brand;
     String  rate;
     String  fueltype;
     String  image;
     String  Distance;
-    int  ownercontact;
     String  Vtype;
 }

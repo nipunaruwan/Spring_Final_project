@@ -17,8 +17,7 @@ public class Damage {
     @Id
     String DamegeID;
     String VID;
-    String DVownname;
     String VDiscription;
     String Damagetype;
-    int Dvcontact;
+
 }

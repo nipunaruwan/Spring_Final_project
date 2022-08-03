@@ -6,6 +6,7 @@ import lk.ijse.carrent.service.CustomerService;
 import lk.ijse.carrent.service.PaymentService;
 import lk.ijse.carrent.utill.Responceutil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 @RestController
@@ -14,9 +15,10 @@ import org.springframework.web.bind.annotation.*;
 public class paymentController {
     @Autowired
     PaymentService paymentService;
-
+@ResponseStatus(HttpStatus.CREATED)
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Responceutil SavePayment(Paymentdto paymentdto) {
+    public Responceutil SavePayment(@ModelAttribute Paymentdto paymentdto) {
+        System.out.println(paymentdto.toString());
         paymentService.savePayment(paymentdto);
         return new Responceutil(200, "save", null);
 
@@ -28,7 +30,7 @@ public class paymentController {
         return new Responceutil(200, "update", null);
     }
 
-    @DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(params = {"ID"},produces = MediaType.APPLICATION_JSON_VALUE)
     public Responceutil Deletepayment(@RequestParam String iD) {
         paymentService.deletePayment(iD);
         return new Responceutil(200, "delete", null);
@@ -36,6 +38,7 @@ public class paymentController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Responceutil getAllpayment() {
+        System.out.println("awooooo");
         return new Responceutil(200, "all", paymentService.getAllPayments());
     }
 

@@ -29,8 +29,8 @@ public class DriverController {
     }
 
     @DeleteMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Responceutil DeleteDriver(@RequestParam String iD) {
-        driverService.deleteDriver(iD);
+    public Responceutil DeleteDriver(@RequestParam String id) {
+        driverService.deleteDriver(id);
         return new Responceutil(200, "delete", null);
     }
 
@@ -40,8 +40,8 @@ public class DriverController {
     }
 
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Responceutil SearchDriver(@PathVariable String iD) {
-        return new Responceutil(200, "search", driverService.searchDriver(iD));
+    public Responceutil SearchDriver(@PathVariable String id) {
+        return new Responceutil(200, "search", driverService.searchDriver(id));
     }
 
 }

@@ -4,35 +4,36 @@
     <meta charset="UTF-8">
     <title>Driver</title>
     <link rel="stylesheet" href="assert/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="assert/Css/Driver.css">
 </head>
 <body>
 <section id="Driverpage" class="container-fluid">
-    <form action="">
+    <form action="" id="driverform">
         <img src="" alt="">
         <h1>Driver</h1><br>
         <div class="row g-3 ">
             <div class="col-6  m-md-auto"  >
-                <input  type="text" class="form-control" placeholder="Driver ID" aria-label="DriverID" width="300px" id="txtDID">
+                <input  type="text" class="form-control" placeholder="Driver ID" aria-label="DriverID" width="300px" id="txtDID" name="DID">
                 <p><small id="lbldid" class="text-danger p-1"></small></p>
             </div>
             <div class="col-6 m-md-auto ">
-                <input type="text" class="form-control" placeholder="Driver name" aria-label="Driver name" id="txtDName">
+                <input type="text" class="form-control" placeholder="Driver name" aria-label="Driver name" id="txtDName" name="Name">
                 <p><small id="lbldname" class="text-danger p-1"></small></p>
             </div>
         </div>
         <div class="row g-3">
             <div class="col-6 ">
-                <input type="text" class="form-control" placeholder="driver licence" aria-label="licence" id="txtdriverlicence">
+                <input type="text" class="form-control" placeholder="driver licence" aria-label="licence" id="txtdriverlicence" name="drivinglicense">
                 <p><small id="lbllicence" class="text-danger p-1"></small></p>
             </div>
             <div class="col-6">
-                <input type="text" class="form-control" placeholder="contact" aria-label="nic" id="txtcontact">
+                <input type="text" class="form-control" placeholder="contact" aria-label="nic" id="txtcontact" name="Contact">
                 <p><small id="lblContact" class="text-danger p-1"></small></p>
             </div>
 
 
                 <div class="col-6 ">
-                    <input type="text" class="form-control" placeholder="NIC" aria-label="NIC" id="txtNIC">
+                    <input type="text" class="form-control" placeholder="NIC" aria-label="NIC" id="txtNIC" name="NIC">
                     <p><small id="lblNIC" class="text-danger p-1"></small></p>
                 </div>
             </div>
@@ -43,10 +44,11 @@
                  <div id="text4"> <input type="text"placeholder="contact-no"></div>
              </div>-->
             <div id="button" class="m-4">
-                <button type="button" class="btn btn-success" id="btnCustomerSave" >Save</button>
-                <button type="button" class="btn btn-danger" id="btnCustomerupdate">update</button>
-                <button type="button" class="btn btn-warning" id="btnCustomerDelete">delete</button>
-                <button type="button" class="btn btn-dark" id="btnCustomerSearch">Search</button>
+                <button type="button" class="btn btn-success" id="btnDriverSave" >Save</button>
+                <button type="button" class="btn btn-danger" id="btnDriverupdate">update</button>
+                <button type="button" class="btn btn-warning" id="btnDriverDelete">delete</button>
+                <button type="button" class="btn btn-dark" id="btnDriverSearch">Search</button>
+                <button type="button" class="btn btn-dark" id="btnloadAllDriver">Load</button>
             </div>
             <div class="container-fluid">
                 <table class="table" width="400px" id="table">
@@ -55,19 +57,175 @@
 
                         <th scope="col">DriverID</th>
                         <th scope="col">Driver name</th>
-                        <th scope="col">NIC</th>
                         <th scope="col">Drivinglicence</th>
                         <th scope="col">Contact</th>
+                        <th scope="col">NIC</th>
 
 
                     </tr>
                     </thead>
-                    <tbody id="custablebody">
+                    <tbody id="Drivertablebody">
 
                     </tbody>
                 </table>
             </div>
     </form>
 </section>
+
+
+<script src="assert/Jquery/jquery-3.6.0.min.js"></script>
+<script>
+    var baseurl ="http://localhost:8080/Spring_Finalproject__Carrent_war/Driver";
+
+    $("#btnDriverSave").click(function(){
+saveDriver();
+
+    });
+
+    function saveDriver(){
+        var data=$("#driverform").serialize();
+        $.ajax({
+            url:baseurl,
+            method:"POST",
+            data: data,
+            success: function (res){
+                if (res.code==200){
+                    alert("Successfully Driver Registered");
+                }
+            },
+            error: function (ob){
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+    $("#btnDriverupdate").click(function () {
+
+        updateDriver();
+    });
+    function updateDriver() {
+        var Driverob = {
+            DID: $("#txtDID").val(),
+            Name: $("#txtDName").val(),
+            NIC: $("#txtNIC").val(),
+            drivinglicense: $("#txtdrivinglicence").val(),
+            contactno: $("#txtcontact").val(),
+        }
+        $.ajax({
+            url: baseurl,
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(Driverob),
+            success: function (res) {
+                if (res.code == 200) { // process is  ok
+                    alert("Successfully Updated");
+                    loadAllDriver();
+                    clearForm();
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+
+    $("#btnDriverDelete").click(function () {
+
+       DeleteDriver();
+    });
+    function DeleteDriver(){
+        let did = $("#txtDID").val();
+        $.ajax({
+            url:baseurl+"?DID="+did,
+            method:"DELETE",
+            success:function (res){
+                if (res.code==200){
+                    alert("Driver Successfully Deleted");
+                  loadAlDriver();
+                   /*  clearForm();*/
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+
+    $("#btnDriverSearch").click(function (){
+       SearchDriver();
+
+    });
+    //------------------------------------------------------------------------------------------------------------
+    function SearchDriver(){
+        var DID=$("#txtDID").val();
+        $.ajax({
+            url:baseurl +"/"+ DID,
+            method:"GET",
+            success: function (res){
+                if (res.code==200){
+                    var driver =res.data;
+                    $("#txtDID").val(driver.DID);
+                    $("#txtDName").val(driver.Name);
+                    $("#txtNIC").val(driver.NIC);
+                    $("#txtdriverlicence").val(driver.drivinglicense);
+                    $("#txtcontact").val(driver.Contact);
+
+                }else {
+
+                    loadAllDriver();
+                }
+            },
+            error:function (ob){
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+
+
+
+    $("#btnloadAllDriver").click(function (){
+       loadAlDriver();
+    });
+
+    function loadAlDriver(){
+        $("#Drivertablebody").empty();
+        $.ajax({
+            url: baseurl,
+            method: "GET",
+            success:function (resp){
+                for (const driver of resp.data) {
+                    let row = `<tr><td>${driver.DID}</td>><td>${driver.Name}</td>>
+<td>${driver.drivinglicense}</td><td>${driver.Contact}</td><td>${driver.NIC}</td>`;
+                    $("#Drivertablebody").append(row);
+                }
+                bindClickEvent();
+
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+    function bindClickEvent() {
+        $("#table>tr").click(function () {
+            //Get values from the selected row
+            let DID = $(this).children().eq(0).text();
+            let Name = $(this).children().eq(1).text();
+            let drivinglicense = $(this).children().eq(2).text();
+            let Contact = $(this).children().eq(3).text();
+            let NIC = $(this).children().eq(4).text();
+
+
+            //Set values to the text-fields
+            $("#txtDID").val(DID);
+            $("#txtDName").val(Name);
+            $("#txtdrivinglicence").val(drivinglicense);
+            $("#txtcontact").val(Contact);
+            $("#txtNIC").val(NIC);
+
+
+        });
+    }
+</script>
+
 </body>
 </html>

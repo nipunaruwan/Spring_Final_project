@@ -20,6 +20,5 @@ public class Driver {
     String Name;
     String NIC;
     String drivinglicense;
-    String Image;
     int Contact;
 }

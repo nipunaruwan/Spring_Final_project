@@ -17,7 +17,6 @@ public class Driverdto {
    String Name;
    String NIC;
   String drivinglicense;
-   String Image;
    int Contact;
 
 

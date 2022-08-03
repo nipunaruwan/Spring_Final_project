@@ -7,5 +7,11 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/EasyRent</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="jdbc:mysql://localhost:3306/ easyrent" uuid="4e860822-ab6d-4dda-9f0f-5d4ea472ebd6">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/ easyrent</jdbc-url>
+    </data-source>
   </component>
 </project>

@@ -71,7 +71,161 @@
                     </tbody>
                 </table>
             </div>
+        </f>
     </form>
 </section>
+<script src="assert/Jquery/jquery-3.6.0.min.js"></script>
+<script>
+    var baseurl ="";
+
+    $("#btnCustomerSave").click(function(){
+
+        saveCustomer();
+    });
+
+    function saveCustomer(){
+        var data=$("#customerform").serialize();
+        $.ajax({
+            url:baseurl,
+            method:"POST",
+            data: data,
+            success: function (res){
+                if (res.code==200){
+                    alert("Successfully Customer Registered");
+                }
+            },
+            error: function (ob){
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+    $("#btnCustomerupdate").click(function () {
+
+        updateCustomer();
+    });
+    function updateCustomer() {
+        var Customerob = {
+            cusID: $("#txtCusID").val(),
+            name: $("#txtCusName").val(),
+            address: $("#txtaddress").val(),
+            iDcard: $("#txtID").val(),
+            drivinglicence: $("#txtdriverlicence").val(),
+            contactno: $("#txtcontact").val(),
+        }
+        $.ajax({
+            url: baseurl,
+            method: "PUT",
+            contentType: "application/json",
+            data: JSON.stringify(Customerob),
+            success: function (res) {
+                if (res.code == 200) { // process is  ok
+                    alert("Successfully Updated");
+                    loadAllDriver();
+                    clearForm();
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+
+    $("#btnCustomerDelete").click(function () {
+
+        DeleteCustomer();
+    });
+    function DeleteCustomer(){
+        let CusID = $("#txtCusID").val();
+        $.ajax({
+            url:baseurl+"?cusID="+CusID,
+            method:"DELETE",
+            success:function (res){
+                if (res.code==200){
+                    alert("Customer Successfully Deleted");
+                    /* loadAllDriver();
+                     clearForm();*/
+                }
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+
+    $("#btnCustomerSearch").click(function (){
+        SearchCustomer();
+
+    });
+    //------------------------------------------------------------------------------------------------------------
+    function SearchCustomer(){
+        var CusID=$("#txtCusID").val();
+        $.ajax({
+            url:baseurl +"/"+ CusID,
+            method:"GET",
+            success: function (res){
+                if (res.code==200){
+                    var customer =res.data;
+                    $("#txtCusID").val(customer.cusID);
+                    $("#txtCusName").val(customer.name);
+                    $("#txtaddress").val(customer.address);
+                    $("#txtID").val(customer.iDcard);
+                    $("#txtdriverlicence").val(customer.drivinglicence);
+                    $("#txtcontact").val(customer.contactno);
+                }else {
+
+                    loadAllCustomers();
+                }
+            },
+            error:function (ob){
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+
+
+
+    $("#btnLoadAll").click(function (){
+        loadAllCustomers();
+    });
+
+    function loadAllCustomers(){
+        $("#custablebody").empty();
+        $.ajax({
+            url: baseurl,
+            method: "GET",
+            success:function (resp){
+                for (const customer of resp.data) {
+                    let row = `<tr><td>${customer.cusID}</td>><td>${customer.name}</td>>
+<td>${customer.address}</td><td>${customer.idcard}</td><td>${customer.drivinglicence}</td><td>${customer.contactno}</td></tr>`;
+                    $("#custablebody").append(row);
+                }
+                bindClickEvent();
+
+            },
+            error: function (ob) {
+                alert(ob.responseJSON.message);
+            }
+        });
+    }
+    function bindClickEvent() {
+        $("#table>tr").click(function () {
+            //Get values from the selected row
+            let cusID = $(this).children().eq(0).text();
+            let name = $(this).children().eq(1).text();
+            let address = $(this).children().eq(2).text();
+            let idcard = $(this).children().eq(3).text();
+            let drivinglicence = $(this).children().eq(4).text();
+            let contactno = $(this).children().eq(5).text();
+
+            //Set values to the text-fields
+            $("#txtCusID").val(cusID);
+            $("#txtCusName").val(name);
+            $("#txtaddress").val(address);
+            $("#txtID").val(idcard);
+            $("#txtdriverlicence").val(drivinglicence);
+            $("#txtcontact").val(contactno);
+        });
+    }
+</script>
 </body>
 </html>
