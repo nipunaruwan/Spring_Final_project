@@ -8,36 +8,32 @@
 </head>
 <body>
 <section id="Employeepage" class="container-fluid">
-    <form action="">
+    <form action="" id="Employeeform">
 
         <h1>Sign UP </h1><br>
         <div class="row g-2 m-md-auto ">
             <div class="col-6  "  >
-                <input  type="text" class="form-control" placeholder="EmployeeID" aria-label="CustomerID" width="300px" id="txtCusID">
+                <input  type="text" class="form-control" placeholder="EmployeeID" aria-label="CustomerID" width="300px" id="txteid" name="EID">
                 <p><small id="lblcusid" class="text-danger p-1"></small></p>
             </div>
             <div class="col-6  ">
-                <input type="text" class="form-control" placeholder="Employee name" aria-label="Customer name" id="txtCusName">
+                <input type="text" class="form-control" placeholder="Employee name" aria-label="Customer name" id="txteName" name="Ename">
                 <p><small id="lblcusname" class="text-danger p-1"></small></p>
             </div>
         </div>
         <div class="row g-2 m-md-auto">
             <div class="col-6 ">
-                <input type="text" class="form-control" placeholder="Email" aria-label="address" id="txtaddress">
+                <input type="text" class="form-control" placeholder="Email" aria-label="address" id="txtemail" name="Email">
                 <p><small id="lblcusaddress" class="text-danger p-1"></small></p>
             </div>
             <div class="col-6 ">
-                <input type="text" class="form-control" placeholder="Contact-no" aria-label="contact-no" id="txtcontact">
+                <input type="password" class="form-control" placeholder="Password" aria-label="contact-no" id="txtpassword" name="password">
                 <p><small id="lblContact" class="text-danger p-1"></small></p>
             </div>
 
-            <div class="row g-2 m-md-auto">
+
                 <div class="col-6 ">
-                    <input type="text" class="form-control" placeholder="email" aria-label="address" id="txtemail">
-                    <p><small id="lblemail" class="text-danger p-1"></small></p>
-                </div>
-                <div class="col-6 ">
-                    <input type="password" class="form-control" placeholder="password" aria-label="contact-no" id="txtdriverID">
+                    <input type="text" class="form-control" placeholder="Username" aria-label="contact-no" id="txtusername" name="Username">
                     <p><small id="lbldriverID" class="text-danger p-1"></small></p>
                 </div>
             </div>
@@ -48,7 +44,7 @@
                  <div id="text4"> <input type="text"placeholder="contact-no"></div>
              </div>-->
             <div id="button" class="m-4">
-              <center>  <button type="button" class="btn btn-success" id="btnEmployeeSave" >Save</button></center>
+              <center>  <button type="button" class="btn btn-success" id="btnEmployeeSave" >Sign up</button></center>
 
             </div>
             <!--<div class="container-fluid">
@@ -74,155 +70,33 @@
 </section>
 <script src="assert/Jquery/jquery-3.6.0.min.js"></script>
 <script>
-    var baseurl ="";
+    var baseurl ="http://localhost:8080/Spring_Finalproject__Carrent_war/Employee";
 
-    $("#btnCustomerSave").click(function(){
+    $("#btnEmployeeSave").click(function(){
 
-        saveCustomer();
+       saveEmployee();
     });
 
-    function saveCustomer(){
-        var data=$("#customerform").serialize();
+    function saveEmployee(){
+        var data=$("#Employeeform").serialize();
         $.ajax({
             url:baseurl,
             method:"POST",
             data: data,
             success: function (res){
                 if (res.code==200){
-                    alert("Successfully Customer Registered");
+                    alert("Successfully Employee Registered");
                 }
             },
             error: function (ob){
                 alert(ob.responseJSON.message);
             }
         });
-    }
-    $("#btnCustomerupdate").click(function () {
-
-        updateCustomer();
-    });
-    function updateCustomer() {
-        var Customerob = {
-            cusID: $("#txtCusID").val(),
-            name: $("#txtCusName").val(),
-            address: $("#txtaddress").val(),
-            iDcard: $("#txtID").val(),
-            drivinglicence: $("#txtdriverlicence").val(),
-            contactno: $("#txtcontact").val(),
-        }
-        $.ajax({
-            url: baseurl,
-            method: "PUT",
-            contentType: "application/json",
-            data: JSON.stringify(Customerob),
-            success: function (res) {
-                if (res.code == 200) { // process is  ok
-                    alert("Successfully Updated");
-                    loadAllDriver();
-                    clearForm();
-                }
-            },
-            error: function (ob) {
-                alert(ob.responseJSON.message);
-            }
-        });
-    }
-
-    $("#btnCustomerDelete").click(function () {
-
-        DeleteCustomer();
-    });
-    function DeleteCustomer(){
-        let CusID = $("#txtCusID").val();
-        $.ajax({
-            url:baseurl+"?cusID="+CusID,
-            method:"DELETE",
-            success:function (res){
-                if (res.code==200){
-                    alert("Customer Successfully Deleted");
-                    /* loadAllDriver();
-                     clearForm();*/
-                }
-            },
-            error: function (ob) {
-                alert(ob.responseJSON.message);
-            }
-        });
-    }
-
-    $("#btnCustomerSearch").click(function (){
-        SearchCustomer();
-
-    });
-    //------------------------------------------------------------------------------------------------------------
-    function SearchCustomer(){
-        var CusID=$("#txtCusID").val();
-        $.ajax({
-            url:baseurl +"/"+ CusID,
-            method:"GET",
-            success: function (res){
-                if (res.code==200){
-                    var customer =res.data;
-                    $("#txtCusID").val(customer.cusID);
-                    $("#txtCusName").val(customer.name);
-                    $("#txtaddress").val(customer.address);
-                    $("#txtID").val(customer.iDcard);
-                    $("#txtdriverlicence").val(customer.drivinglicence);
-                    $("#txtcontact").val(customer.contactno);
-                }else {
-
-                    loadAllCustomers();
-                }
-            },
-            error:function (ob){
-                alert(ob.responseJSON.message);
-            }
-        });
-    }
 
 
 
-    $("#btnLoadAll").click(function (){
-        loadAllCustomers();
-    });
 
-    function loadAllCustomers(){
-        $("#custablebody").empty();
-        $.ajax({
-            url: baseurl,
-            method: "GET",
-            success:function (resp){
-                for (const customer of resp.data) {
-                    let row = `<tr><td>${customer.cusID}</td>><td>${customer.name}</td>>
-<td>${customer.address}</td><td>${customer.idcard}</td><td>${customer.drivinglicence}</td><td>${customer.contactno}</td></tr>`;
-                    $("#custablebody").append(row);
-                }
-                bindClickEvent();
 
-            },
-            error: function (ob) {
-                alert(ob.responseJSON.message);
-            }
-        });
-    }
-    function bindClickEvent() {
-        $("#table>tr").click(function () {
-            //Get values from the selected row
-            let cusID = $(this).children().eq(0).text();
-            let name = $(this).children().eq(1).text();
-            let address = $(this).children().eq(2).text();
-            let idcard = $(this).children().eq(3).text();
-            let drivinglicence = $(this).children().eq(4).text();
-            let contactno = $(this).children().eq(5).text();
-
-            //Set values to the text-fields
-            $("#txtCusID").val(cusID);
-            $("#txtCusName").val(name);
-            $("#txtaddress").val(address);
-            $("#txtID").val(idcard);
-            $("#txtdriverlicence").val(drivinglicence);
-            $("#txtcontact").val(contactno);
-        });
     }
 </script>
 </body>
